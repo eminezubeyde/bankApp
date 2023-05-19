@@ -1,2 +1,2 @@
 # bankApp
-Turkcell-geleceği yazanlar bootcamp sürecinde öğrendiklerimi peiştirmek için yaptığım proje
+Turkcell-geleceği yazanlar bootcamp sürecinde öğrendiklerimi pekiştirmek için yaptığım proje

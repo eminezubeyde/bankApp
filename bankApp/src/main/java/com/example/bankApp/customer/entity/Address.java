@@ -1,6 +1,6 @@
-package com.example.bankApp.entity;
+package com.example.bankApp.customer.entity;
 
-import com.example.bankApp.entity.enums.AddressType;
+import com.example.bankApp.customer.entity.enums.AddressType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

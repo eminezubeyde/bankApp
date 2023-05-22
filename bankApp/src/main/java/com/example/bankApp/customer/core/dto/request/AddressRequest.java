@@ -1,6 +1,6 @@
-package com.example.bankApp.core.dto.request;
+package com.example.bankApp.customer.core.dto.request;
 
-import com.example.bankApp.entity.enums.AddressType;
+import com.example.bankApp.customer.entity.enums.AddressType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

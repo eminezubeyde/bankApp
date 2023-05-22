@@ -1,4 +1,4 @@
-package com.example.bankApp.entity.enums;
+package com.example.bankApp.customer.entity.enums;
 
 public enum AddressType {
     HOME,WORK, BILLING

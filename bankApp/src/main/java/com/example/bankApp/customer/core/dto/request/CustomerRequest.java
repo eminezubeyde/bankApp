@@ -1,4 +1,4 @@
-package com.example.bankApp.core.dto.request;
+package com.example.bankApp.customer.core.dto.request;
 
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;

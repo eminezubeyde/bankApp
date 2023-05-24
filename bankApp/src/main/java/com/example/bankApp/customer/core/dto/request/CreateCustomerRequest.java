@@ -1,19 +1,19 @@
 package com.example.bankApp.customer.core.dto.request;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequest {
+public class CreateCustomerRequest {
     private String identityNumber;
     private String name;
     private String surname;

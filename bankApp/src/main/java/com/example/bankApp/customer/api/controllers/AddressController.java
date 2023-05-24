@@ -2,7 +2,7 @@ package com.example.bankApp.customer.api.controllers;
 
 import com.example.bankApp.common.core.result.GeneralResult;
 import com.example.bankApp.customer.business.abstracts.AddressService;
-import com.example.bankApp.customer.core.dto.request.AddressRequest;
+import com.example.bankApp.customer.core.dto.request.CreateAddressRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 public class AddressController {
     private final AddressService addressService;
     @PostMapping
-    public GeneralResult create(@RequestBody AddressRequest request){
+    public GeneralResult create(@RequestBody CreateAddressRequest request){
         return addressService.add(request);
     }
     @PutMapping
-    public GeneralResult update(@PathVariable int id,@RequestBody AddressRequest request){
+    public GeneralResult update(@PathVariable int id,@RequestBody CreateAddressRequest request){
         return addressService.update(id,request);
     }
     @DeleteMapping

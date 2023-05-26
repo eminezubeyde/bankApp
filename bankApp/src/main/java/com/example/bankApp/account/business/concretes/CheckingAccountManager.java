@@ -4,16 +4,17 @@ import com.example.bankApp.account.business.abstracts.CheckingAccountService;
 import com.example.bankApp.account.core.dto.CheckingAccountDto;
 import com.example.bankApp.account.core.dto.requests.CreateCheckingAccountRequest;
 import com.example.bankApp.account.core.mapper.CheckingAccountMapper;
-import com.example.bankApp.account.core.utils.UniqueNoCreator;
+import com.example.bankApp.common.core.exception.GeneralException;
+import com.example.bankApp.common.core.utils.UniqueNoCreator;
 import com.example.bankApp.account.entity.CheckingAccount;
 import com.example.bankApp.account.entity.enums.AccountType;
 import com.example.bankApp.account.repository.CheckingAccountRepository;
+import com.example.bankApp.common.core.exception.EntityNotFoundException;
 import com.example.bankApp.common.core.message.CheckingAccountMessage;
 import com.example.bankApp.common.core.result.DataResult;
 import com.example.bankApp.common.core.result.GeneralResult;
 import com.example.bankApp.customer.business.abstracts.CustomerService;
 import com.example.bankApp.customer.entity.Customer;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,29 +32,29 @@ public class CheckingAccountManager implements CheckingAccountService {
 
     @Override
     @Transactional
-    public GeneralResult add(int customerId, CreateCheckingAccountRequest request) {
+    public GeneralResult add(int customerId, CreateCheckingAccountRequest request) throws EntityNotFoundException {
         Customer customer = customerService.findByCustomerId(customerId);
         CheckingAccount checkingAccount = CheckingAccountMapper.MAPPER.requestToEntity(request);
         checkingAccount.setCustomer(customer);
         checkingAccount.setCreatedAt(LocalDateTime.now());
         checkingAccount.setAccountNo(uniqueNoCreator.createAccountNo());
-        checkingAccount.setIbanNo(null);
+        checkingAccount.setIbanNo(uniqueNoCreator.createIbanNo());
         checkingAccount.setAccountType(AccountType.CHECKING);
         customer.getCheckingAccounts().add(checkingAccount);
         checkingAccountRepository.save(checkingAccount);
         CheckingAccountDto dto = CheckingAccountMapper.MAPPER.entityToDto(checkingAccount);
         return new DataResult<>(dto);
     }
-    // TODO bir kullanıcının tüm vadesiz hesaplarını getiren web servis.
-    // TODO bir kullanıcının  X currencyType'ına göre tüm vadesiz hesaplarını getiren web servis.
-    // TODO bir kullanıcının id'li vadesiz hesaplarını getiren web servis.
+    //TODO hesabı blocklama ekle
 
 
     @Override
-    @Transactional
-    public void delete(int id) {
-        if (checkingAccountRepository.existsById(id)) {
-            throw new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString());
+    public void delete(int id) throws GeneralException {
+        CheckingAccount checkingAccount=checkingAccountRepository
+                .findById(id)
+                .orElseThrow(()-> new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString()));
+        if(checkingAccount.getSavingAccount()!=null){
+            throw new GeneralException("bu hesaba bağlı bir vadeli hesap olduğu için silinemez");
         }
         checkingAccountRepository.deleteById(id);
 
@@ -70,7 +71,7 @@ public class CheckingAccountManager implements CheckingAccountService {
     }
 
     @Override
-    public GeneralResult getById(int id) {
+    public GeneralResult getById(int id) throws EntityNotFoundException {
         CheckingAccount checkingAccount = checkingAccountRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString()));
@@ -79,7 +80,15 @@ public class CheckingAccountManager implements CheckingAccountService {
     }
 
     @Override
-    public GeneralResult getAllCheckingAccountsByCustomerId(int customerId) {
+    public CheckingAccount findById(int id) throws com.example.bankApp.common.core.exception.EntityNotFoundException {
+       return checkingAccountRepository
+                .findById(id)
+                .orElseThrow(() ->
+                        new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString()));
+    }
+
+    @Override
+    public GeneralResult getAllCheckingAccountsByCustomerId(int customerId) throws EntityNotFoundException {
         Customer customer = customerService.findByCustomerId(customerId);
         List<CheckingAccount> checkingAccounts = customer.getCheckingAccounts();
         List<CheckingAccountDto> dtoList = checkingAccounts
@@ -88,13 +97,14 @@ public class CheckingAccountManager implements CheckingAccountService {
                 .toList();
         return new DataResult<>(dtoList);
     }
+    //TODO filtreleme doğru çalışmıyor
 
     @Override
     public GeneralResult getCheckingAccountsByCurrencyType(String currencyType) {
         List<CheckingAccount> checkingAccounts = checkingAccountRepository
                 .findAll()
                 .stream()
-                .filter(checkingAccount -> false)
+                .filter(account -> account.getCurrencyType().getValue().equals(currencyType))
                 .toList();
         List<CheckingAccountDto> dtoList = checkingAccounts
                 .stream()

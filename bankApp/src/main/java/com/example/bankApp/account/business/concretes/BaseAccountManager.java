@@ -14,4 +14,9 @@ public class BaseAccountManager implements BaseAccountService {
     public boolean checkIsAccountNoUnique(String accountNo) {
         return accountRepository.existsByAccountNo(accountNo);
     }
+
+    @Override
+    public boolean checkIsIbanNoUnique(String ibanNo) {
+        return accountRepository.existsByIbanNo(ibanNo);
+    }
 }

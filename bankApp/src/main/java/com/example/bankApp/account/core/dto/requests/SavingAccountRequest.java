@@ -9,15 +9,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Getter
 @Setter
 public class SavingAccountRequest {
-    private String parentAccountNumber;
+    private int checkingAccountId;
     private String accountName;
     private CurrencyType currencyType;
     private PurposeSaving purposeSaving;
-    private BigDecimal targetAmount;
+    private double targetAmount;
     private Maturity maturity;
-    private BigDecimal openingBalance;
+    private double openingBalance;
+    private Date maturityDate;
 }

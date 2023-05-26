@@ -1,5 +1,7 @@
 package com.example.bankApp.customer.business.concretes;
 
+import com.example.bankApp.account.entity.CheckingAccount;
+import com.example.bankApp.common.core.exception.AlreadyExistsException;
 import com.example.bankApp.common.core.exception.EntityNotFoundException;
 import com.example.bankApp.common.core.exception.GeneralException;
 import com.example.bankApp.common.core.message.CustomerMessage;
@@ -12,7 +14,6 @@ import com.example.bankApp.customer.core.dto.request.UpdateCustomerRequest;
 import com.example.bankApp.customer.core.mapper.CustomerMapper;
 import com.example.bankApp.customer.entity.Customer;
 import com.example.bankApp.customer.repository.CustomerRepository;
-import jakarta.persistence.EntityExistsException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,9 +26,9 @@ public class CustomerManager implements CustomerService {
     private final CustomerRepository customerRepository;
 
     @Override
-    public GeneralResult add(CreateCustomerRequest request) throws EntityNotFoundException {
+    public GeneralResult add(CreateCustomerRequest request) throws AlreadyExistsException {
         if (customerRepository.existsByIdentityNumber(request.getIdentityNumber())) {
-            throw new EntityNotFoundException(CustomerMessage.ALREADY_EXISTS_TC.toString());
+            throw new AlreadyExistsException(CustomerMessage.ALREADY_EXISTS_TC.toString());
         }
         Customer customer = CustomerMapper.MAPPER.customerRequestToCustomer(request);
         customerRepository.save(customer);
@@ -36,19 +37,29 @@ public class CustomerManager implements CustomerService {
     }
 
     @Override
-    public void delete(int id) {
-        if (!customerRepository.existsById(id)) {
-            throw new RuntimeException(CustomerMessage.NOT_FOUND.toString());
+    public void delete(int id) throws GeneralException {
+        Customer customer = customerRepository
+                .findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(CustomerMessage.NOT_FOUND.toString()));
+        if (customer.getSavingAccounts() != null) {
+            throw new GeneralException("bu müşterinin vadeli hesabı olduğu için silinemez");
+        }
+        double totalBalance = customer.getCheckingAccounts()
+                .stream()
+                .mapToDouble(CheckingAccount::getBalance)
+                .sum();
+        if (totalBalance != 0) {
+            throw new GeneralException("bakiye 0 olmadan silme işlemi yapılamaz");
         }
         customerRepository.deleteById(id);
     }
 
     @Override
     @Transactional
-    public GeneralResult update(int id, UpdateCustomerRequest request) {
+    public GeneralResult update(int id, UpdateCustomerRequest request) throws EntityNotFoundException {
         Customer customer = customerRepository
                 .findById(id)
-                .orElseThrow(() -> new EntityExistsException(CustomerMessage.NOT_FOUND.toString()));
+                .orElseThrow(() -> new EntityNotFoundException(CustomerMessage.NOT_FOUND.toString()));
         setUpdateCustomerRequestToEntity(request, customer);
 
         CustomerDto dto = CustomerMapper.MAPPER.customerToCustomerDto(customer);
@@ -66,10 +77,10 @@ public class CustomerManager implements CustomerService {
     }
 
     @Override
-    public Customer findByCustomerId(int id) {
+    public Customer findByCustomerId(int id) throws EntityNotFoundException {
         return customerRepository
                 .findById(id).
-                orElseThrow(() -> new EntityExistsException(CustomerMessage.NOT_FOUND.toString()));
+                orElseThrow(() -> new EntityNotFoundException(CustomerMessage.NOT_FOUND.toString()));
     }
 
     private static void setUpdateCustomerRequestToEntity(UpdateCustomerRequest request, Customer customer) {

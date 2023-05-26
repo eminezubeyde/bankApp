@@ -1,4 +1,4 @@
-package com.example.bankApp.account.core.utils;
+package com.example.bankApp.common.core.utils;
 
 import com.example.bankApp.account.business.abstracts.BaseAccountService;
 import lombok.RequiredArgsConstructor;
@@ -17,4 +17,14 @@ public class UniqueNoCreator {
         }
         return createAccountNo();
     }
+
+    public String createIbanNo() {
+        String ibanKodu="TR";
+        String randomDepositIbanNo = RandomStringUtils.randomNumeric(24);
+        if (!(accountService.checkIsIbanNoUnique(randomDepositIbanNo))){
+            return ibanKodu+randomDepositIbanNo;
+        }
+        return createIbanNo();
+    }
 }
+

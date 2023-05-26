@@ -20,11 +20,12 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Temporal(TemporalType.DATE)
     private String ibanNo;
     private String accountNo;
     private String accountName;
-    private BigDecimal balance=BigDecimal.ZERO;
-    private BigDecimal lockedBalance = BigDecimal.ZERO;
+    private double balance;
+    private double lockedBalance = 0;
 
     @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;

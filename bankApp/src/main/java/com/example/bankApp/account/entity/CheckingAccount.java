@@ -17,4 +17,6 @@ public class CheckingAccount extends Account {
     private boolean blocked = false;
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
+    @OneToOne
+    private SavingAccount savingAccount;
 }

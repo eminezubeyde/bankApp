@@ -21,20 +21,21 @@ import java.util.Date;
 public class SavingAccount extends Account {//vadeli hesap
     private int id;
 
-    private BigDecimal successRate = BigDecimal.ZERO;//başarı oranı
-    private BigDecimal targetAmount = BigDecimal.ZERO;//hedef tutar
+    private double successRate =0;//başarı oranı
+    private double targetAmount; //hedef tutar
+    private double openingBalance;
 
     @Enumerated(value = EnumType.ORDINAL)//vade
     private Maturity maturity;
 
     @Temporal(TemporalType.DATE)
-    private Date maturityDate;// vade tarihi
+    private Date maturityDate;// vade bitiş tarihi
 
     @Enumerated(EnumType.STRING)//hesap amacı
     private PurposeSaving purposeSaving;
 
     @OneToOne
-    private CheckingAccount parentAccount;
+    private CheckingAccount checkingAccount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;

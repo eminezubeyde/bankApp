@@ -21,9 +21,9 @@ import java.util.Date;
 public class SavingAccount extends Account {//vadeli hesap
     private int id;
 
-    private double successRate =0;//başarı oranı
-    private double targetAmount; //hedef tutar
-    private double openingBalance;
+    private BigDecimal successRate =BigDecimal.ZERO;//başarı oranı
+    private BigDecimal targetAmount; //hedef tutar
+    private BigDecimal openingBalance;
 
     @Enumerated(value = EnumType.ORDINAL)//vade
     private Maturity maturity;

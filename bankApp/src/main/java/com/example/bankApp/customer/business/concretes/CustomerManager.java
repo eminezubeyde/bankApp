@@ -18,6 +18,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -41,16 +42,17 @@ public class CustomerManager implements CustomerService {
         Customer customer = customerRepository
                 .findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(CustomerMessage.NOT_FOUND.toString()));
-        if (customer.getSavingAccounts() != null) {
+        if (customer.getSavingAccounts() != null && !customer.getSavingAccounts().isEmpty()) {
             throw new GeneralException("bu müşterinin vadeli hesabı olduğu için silinemez");
         }
-        double totalBalance = customer.getCheckingAccounts()
+        BigDecimal totalBalance = customer.getCheckingAccounts()
                 .stream()
-                .mapToDouble(CheckingAccount::getBalance)
-                .sum();
-        if (totalBalance != 0) {
+                .map(CheckingAccount::getBalance)
+                .reduce(BigDecimal.ZERO,BigDecimal::add);
+        if (totalBalance.compareTo(BigDecimal.ZERO)!=0) {
             throw new GeneralException("bakiye 0 olmadan silme işlemi yapılamaz");
         }
+
         customerRepository.deleteById(id);
     }
 

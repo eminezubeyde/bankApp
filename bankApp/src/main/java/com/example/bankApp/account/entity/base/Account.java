@@ -10,6 +10,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -24,8 +27,8 @@ public class Account {
     private String ibanNo;
     private String accountNo;
     private String accountName;
-    private double balance;
-    private double lockedBalance = 0;
+    private BigDecimal balance=BigDecimal.ZERO;
+    private BigDecimal lockedBalance=BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
@@ -35,5 +38,6 @@ public class Account {
 
     private LocalDateTime createdAt;
 
-
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
+    private List<AccountActivity> activities = new ArrayList<>();
 }

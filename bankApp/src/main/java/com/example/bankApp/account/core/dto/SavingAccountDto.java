@@ -18,6 +18,7 @@ import java.util.Date;
 @Setter
 public class SavingAccountDto {
     private int id;
+    private int customerId;
     private int checkingAccountId;
     private String accountName;
     private String ibanNo;

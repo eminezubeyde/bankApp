@@ -4,6 +4,7 @@ import com.example.bankApp.account.business.abstracts.BaseAccountService;
 import com.example.bankApp.account.repository.AccountRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor

@@ -21,6 +21,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class SavingAccountManager implements SavingAccountService {
     @Transactional
     public GeneralResult create(int checkingAccountId, SavingAccountRequest request) throws GeneralException {
         CheckingAccount checkingAccount = checkingAccountService.findById(checkingAccountId);
-        if (checkingAccount.getBalance() < request.getOpeningBalance()) {
+        if (checkingAccount.getBalance().compareTo(BigDecimal.ZERO) < request.getOpeningBalance()) {
             throw new GeneralException(SavingAccountMessage.INSUFFICIENT_BALANCE.toString());
         }
 
@@ -50,23 +51,15 @@ public class SavingAccountManager implements SavingAccountService {
         savingAccount.setBalance(savingAccount.getOpeningBalance());
         savingAccount.setSuccessRate(accountHelper.getSuccessRate(savingAccount.getOpeningBalance(), savingAccount.getTargetAmount()));
         savingAccountRepository.save(savingAccount);
-        checkingAccount.setBalance(checkingAccount.getBalance() - savingAccount.getBalance());
+        checkingAccount.setBalance(checkingAccount.getBalance().subtract(savingAccount.getBalance()));
         checkingAccount.setSavingAccount(savingAccount);
         SavingAccountDto savingAccountDto = SavingAccountMapping.MAPPER.entityToDto(savingAccount);
 
 
         return new DataResult<>(savingAccountDto);
     }
-    // müşteri silerken de checking acocunt balanc'0 ve bağlı bir saving account olmaması lazım.testini yap
 
-    // TODO bu işlerden sonra
-    // TODO currency service yaratılacak . para değişimi(exchange)
-    // bir tane servis tek olacak exchange(from,to,amount)
-    // dış gerçek sisteme gidecek.
-    // not dış servislere localden istek atmak için restTemplate kullanabilirsin.
-    // body - header - content-type -
-    // web site bul
-    //
+
 
     @Override
     public GeneralResult getAll() {
@@ -121,7 +114,7 @@ public class SavingAccountManager implements SavingAccountService {
                 .findById(savingAccountId)
                 .orElseThrow(() -> new EntityNotFoundException(SavingAccountMessage.NOT_FOUND.toString()));
         CheckingAccount checkingAccount = savingAccount.getCheckingAccount();
-        checkingAccount.setBalance(checkingAccount.getBalance() + savingAccount.getBalance());
+        checkingAccount.setBalance(checkingAccount.getBalance().add(savingAccount.getBalance()));
         deleteById(savingAccountId);
         return new GeneralResult("başarılı", true);
     }

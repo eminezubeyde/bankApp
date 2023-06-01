@@ -17,4 +17,6 @@ public interface SavingAccountService {
     GeneralResult getAllSavingAccountsByCustomerId(int customerId) throws EntityNotFoundException;
 
     GeneralResult savingAccountClose(int savingAccountId) throws EntityNotFoundException;
+
+    GeneralResult getAllAccountActivitiesBySavingAccountId(int savingAccountId) throws EntityNotFoundException;
 }

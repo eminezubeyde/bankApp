@@ -36,9 +36,14 @@ public class SavingAccountControllers {
     public GeneralResult getAllSavingAccountsByCustomerId(@PathVariable int customerId) throws EntityNotFoundException {
         return savingAccountService.getAllSavingAccountsByCustomerId(customerId);
     }
+    @GetMapping("{savingAccountId}/accountActivities")// api/savingAccount/2/accountActivities
+    public GeneralResult getAllAccountActivitiesBySavingAccountId(@PathVariable int savingAccountId) throws EntityNotFoundException {
+        return savingAccountService.getAllAccountActivitiesBySavingAccountId(savingAccountId);
+    }
 
     @DeleteMapping("/close/{savingAccountId}")//http://localhost:8090/api/savingAccount/close/4
     public GeneralResult savingAccountClose(@PathVariable int savingAccountId) throws EntityNotFoundException {
         return savingAccountService.savingAccountClose(savingAccountId);
     }
+
 }

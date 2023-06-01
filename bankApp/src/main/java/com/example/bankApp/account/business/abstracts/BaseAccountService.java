@@ -1,6 +1,10 @@
 package com.example.bankApp.account.business.abstracts;
 
+import com.example.bankApp.account.entity.base.Account;
+
 public interface BaseAccountService {
     boolean checkIsAccountNoUnique(String accountNo);
     boolean checkIsIbanNoUnique(String ibanNo);
+
+    Account getById(int accountId);
 }

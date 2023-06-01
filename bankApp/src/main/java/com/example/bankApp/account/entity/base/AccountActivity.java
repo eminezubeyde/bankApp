@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -19,13 +20,14 @@ public class AccountActivity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String crossAccount; //karşı hesap
+    private String crossAccount; //karşı hesap İBAN
     private BigDecimal amount;
-    private Date date;
+    private LocalDateTime date;
     private String description;
     private BigDecimal availableBalance;
     @Enumerated(value = EnumType.STRING)
     private ActionStatus actionStatus;
     @ManyToOne
     private Account account;
+
 }

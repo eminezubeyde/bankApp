@@ -49,6 +49,8 @@ public class SavingAccountManager implements SavingAccountService {
             throw new GeneralException(SavingAccountMessage.INSUFFICIENT_BALANCE.toString());
         }
         //TODO hesap tiplerini kontrol et,tarihe göre filtreleme işlemleri yap
+        //TODO SAVİNG ACCOUNTUN KAPANMASI DURUMUNDA CHECKİNG ACCOUNTA BALANCI GÖNDER
+        //
 
         SavingAccount savingAccount = SavingAccountMapping.MAPPER.requestToEntity(request);
         savingAccount.setCheckingAccount(checkingAccount);

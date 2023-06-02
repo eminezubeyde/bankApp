@@ -21,10 +21,10 @@ public class IAccountActivityImpl implements IAccountActivity {
     private final AccountActivityRepository accountActivityRepository;
     @Override
     @Transactional
-    public void addActivity(int accountId, String decription, BigDecimal amount, String crossAccountIbanNo, ActionStatus actionStatus) {
+    public void addActivity(int accountId, String description, BigDecimal amount, String crossAccountIbanNo, ActionStatus actionStatus) {
         AccountActivity accountActivity=new AccountActivity();
         Account account = baseAccountService.getById(accountId);
-        accountActivity.setDescription(decription);
+        accountActivity.setDescription(description);
         accountActivity.setAmount(amount);
         accountActivity.setActionStatus(actionStatus);
         accountActivity.setDate(LocalDateTime.now());

@@ -4,7 +4,8 @@ public enum SavingAccountMessage {
     NOT_FOUND("Böyle bir vadeli hesap bulunamadı"),
     ALREADY_EXISTS("Böyle bir vadeli hesap zaten kayıtlı"),
     SUCCESSFUL("BAŞARIYLA EKLENDİ"),
-    INSUFFICIENT_BALANCE("Yetersiz bakiye");
+    INSUFFICIENT_BALANCE("Yetersiz bakiye"),
+    CURRENCY_TYPE_DONT_MATCH("Para birimleri vadesiz hesap ile aynı olmalıdır.");
 
 
 

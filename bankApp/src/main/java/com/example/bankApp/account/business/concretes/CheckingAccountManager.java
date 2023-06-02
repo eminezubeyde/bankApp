@@ -50,10 +50,10 @@ public class CheckingAccountManager implements CheckingAccountService {
 
     @Override
     public void delete(int id) throws GeneralException {
-        CheckingAccount checkingAccount=checkingAccountRepository
+        CheckingAccount checkingAccount = checkingAccountRepository
                 .findById(id)
-                .orElseThrow(()-> new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString()));
-        if(checkingAccount.getSavingAccount()!=null){
+                .orElseThrow(() -> new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString()));
+        if (checkingAccount.getSavingAccount() != null) {
             throw new GeneralException("bu hesaba bağlı bir vadeli hesap olduğu için silinemez");
         }
         checkingAccountRepository.deleteById(id);
@@ -81,7 +81,7 @@ public class CheckingAccountManager implements CheckingAccountService {
 
     @Override
     public CheckingAccount findById(int id) throws com.example.bankApp.common.core.exception.EntityNotFoundException {
-       return checkingAccountRepository
+        return checkingAccountRepository
                 .findById(id)
                 .orElseThrow(() ->
                         new EntityNotFoundException(CheckingAccountMessage.NOT_FOUND.toString()));
@@ -97,7 +97,6 @@ public class CheckingAccountManager implements CheckingAccountService {
                 .toList();
         return new DataResult<>(dtoList);
     }
-    //TODO filtreleme doğru çalışmıyor
 
     @Override
     public GeneralResult getCheckingAccountsByCurrencyType(String currencyType) {

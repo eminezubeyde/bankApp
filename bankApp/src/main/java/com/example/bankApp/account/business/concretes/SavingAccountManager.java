@@ -29,7 +29,6 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +47,9 @@ public class SavingAccountManager implements SavingAccountService {
         if (checkingAccount.getBalance().compareTo(BigDecimal.valueOf(request.getOpeningBalance())) < 0) {
             throw new GeneralException(SavingAccountMessage.INSUFFICIENT_BALANCE.toString());
         }
+        if(request.getCurrencyType()!=checkingAccount.getCurrencyType()){
+            throw new GeneralException(SavingAccountMessage.CURRENCY_TYPE_DONT_MATCH.toString());
+        }
         //TODO hesap tiplerini kontrol et,tarihe göre filtreleme işlemleri yap
         //TODO SAVİNG ACCOUNTUN KAPANMASI DURUMUNDA CHECKİNG ACCOUNTA BALANCI GÖNDER
         //
@@ -64,15 +66,24 @@ public class SavingAccountManager implements SavingAccountService {
 
         checkingAccount.setSavingAccount(savingAccount);
         SavingAccountDto savingAccountDto = SavingAccountMapping.MAPPER.entityToDto(savingAccount);
-        accountActivity.addActivity(savingAccount.getId(),"Hesap açılış Tutarı",savingAccount.getOpeningBalance(),checkingAccount.getIbanNo(), ActionStatus.INCOMING);
-        accountActivity.addActivity(checkingAccount.getId(),"saving account opening balance",savingAccount.getOpeningBalance(), savingAccount.getIbanNo(), ActionStatus.OUTGOING);
+
+        accountActivity.addActivity(savingAccount.getId()
+                , "Hesap açılış Tutarı",
+                savingAccount.getOpeningBalance(),
+                checkingAccount.getIbanNo(),
+                ActionStatus.INCOMING);
+
+        accountActivity.addActivity(checkingAccount.getId()
+                , "saving account opening balance"
+                , savingAccount.getOpeningBalance()
+                , savingAccount.getIbanNo()
+                , ActionStatus.OUTGOING);
+
         savingAccount.setBalance(savingAccount.getOpeningBalance());
         checkingAccount.setBalance(checkingAccount.getBalance().subtract(savingAccount.getBalance()));
 
-
         return new DataResult<>(savingAccountDto);
     }
-
 
 
     @Override
@@ -136,7 +147,7 @@ public class SavingAccountManager implements SavingAccountService {
         SavingAccount savingAccount = savingAccountRepository
                 .findById(savingAccountId)
                 .orElseThrow(() -> new EntityNotFoundException(SavingAccountMessage.NOT_FOUND.toString()));
-        List<AccountActivityDto> accountActivityDtoList=savingAccount.getActivities().stream().map(AccountActivityMapper.MAPPER::entityToDto).toList();
+        List<AccountActivityDto> accountActivityDtoList = savingAccount.getActivities().stream().map(AccountActivityMapper.MAPPER::entityToDto).toList();
         return new DataResult<>(accountActivityDtoList);
     }
 }

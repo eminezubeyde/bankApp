@@ -1,5 +1,6 @@
 package com.example.bankApp.transfer.entitiy;
 
+import com.example.bankApp.account.entity.enums.CurrencyType;
 import com.example.bankApp.transfer.entitiy.enums.TransferType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,12 @@ public class Transfer {
     private BigDecimal balance;
     private String description;
     private LocalDateTime processTime;//işlem zamanı
+
     @Enumerated(value = EnumType.STRING)
     private TransferType transferType;
+
+    @Enumerated(value = EnumType.STRING)
+    private CurrencyType currencyType;
+
 
 }

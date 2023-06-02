@@ -25,6 +25,17 @@ public class BaseAccountManager implements BaseAccountService {
 
     @Override
     public Account getById(int accountId) {
-        return accountRepository.findById(accountId).orElseThrow(()-> new EntityNotFoundException("hesap bulunamadı"));
+        return accountRepository.findById(accountId).orElseThrow(()->
+                new EntityNotFoundException("hesap bulunamadı"));
+    }
+
+    @Override
+    public boolean checkIfIbanNoExists(String ibanNo) {
+        return accountRepository.existsByIbanNo(ibanNo);
+    }
+
+    @Override
+    public Account getByIbanNo(String ibanNo) {
+        return accountRepository.findByIbanNo(ibanNo);
     }
 }

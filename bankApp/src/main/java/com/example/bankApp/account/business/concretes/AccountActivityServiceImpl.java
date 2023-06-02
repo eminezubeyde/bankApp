@@ -1,7 +1,7 @@
 package com.example.bankApp.account.business.concretes;
 
 import com.example.bankApp.account.business.abstracts.BaseAccountService;
-import com.example.bankApp.account.business.abstracts.IAccountActivity;
+import com.example.bankApp.account.business.abstracts.AccountActivityService;
 import com.example.bankApp.account.entity.base.Account;
 import com.example.bankApp.account.entity.base.AccountActivity;
 import com.example.bankApp.account.repository.AccountActivityRepository;
@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
-public class IAccountActivityImpl implements IAccountActivity {
+public class AccountActivityServiceImpl implements AccountActivityService {
     private final BaseAccountService baseAccountService;
     private final AccountActivityRepository accountActivityRepository;
     @Override

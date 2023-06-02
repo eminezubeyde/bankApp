@@ -38,4 +38,8 @@ public class CheckingAccountControllers {
     public GeneralResult getCheckingAccountByCurrencyType(@PathVariable("currencyType") String currencyType){
         return checkingAccountService.getCheckingAccountsByCurrencyType(currencyType);
     }
+    @GetMapping("{checkingAccountId}/accountActivities")// api/checkingAccount/2/accountActivities
+    public GeneralResult getAllAccountActivitiesBySavingAccountId(@PathVariable int checkingAccountId) throws EntityNotFoundException {
+        return checkingAccountService.getAllAccountActivitiesByCheckingAccountId(checkingAccountId);
+    }
 }

@@ -17,4 +17,6 @@ public interface CheckingAccountService {
     GeneralResult getAllCheckingAccountsByCustomerId(int customerId) throws EntityNotFoundException;
 
     GeneralResult getCheckingAccountsByCurrencyType(String currencyType);
+
+    GeneralResult getAllAccountActivitiesByCheckingAccountId(int checkingAccountId) throws EntityNotFoundException;
 }

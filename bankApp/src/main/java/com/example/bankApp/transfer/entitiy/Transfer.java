@@ -22,7 +22,7 @@ public class Transfer {
     private int id;
     private String fromIban;//ibandan
     private String toIban;//ibana
-    private BigDecimal balance;
+    private BigDecimal amount;
     private String description;
     private LocalDateTime processTime;//işlem zamanı
 

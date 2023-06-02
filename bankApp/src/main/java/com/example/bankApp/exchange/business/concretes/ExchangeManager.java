@@ -23,9 +23,6 @@ public class ExchangeManager implements ExchangeService {
         if(amount.compareTo(BigDecimal.ZERO)<0){
             throw new AmountNotValidException("Amount Not Valid");
         }
-        if (toCurrency.equals(fromCurrency)) {
-            return null; // eğer para birimleri aynı ise dönüştürme yapılmaz.
-        }
 
         String url = ExchangeConstant.API_LAYER_URL
                 + "?to=" + toCurrency + "&from=" + fromCurrency + "&amount=" + amount;

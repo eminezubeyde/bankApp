@@ -1,6 +1,6 @@
 package com.example.bankApp.account.business.concretes;
 
-import com.example.bankApp.account.business.abstracts.IAccountActivity;
+import com.example.bankApp.account.business.abstracts.AccountActivityService;
 import com.example.bankApp.account.business.abstracts.CheckingAccountService;
 import com.example.bankApp.account.business.abstracts.SavingAccountService;
 import com.example.bankApp.account.core.dto.AccountActivityDto;
@@ -8,7 +8,6 @@ import com.example.bankApp.account.core.dto.SavingAccountDto;
 import com.example.bankApp.account.core.dto.requests.SavingAccountRequest;
 import com.example.bankApp.account.core.mapper.AccountActivityMapper;
 import com.example.bankApp.account.core.mapper.SavingAccountMapping;
-import com.example.bankApp.account.entity.base.AccountActivity;
 import com.example.bankApp.common.core.entity.ActionStatus;
 import com.example.bankApp.common.core.utils.AccountHelper;
 import com.example.bankApp.common.core.utils.UniqueNoCreator;
@@ -38,7 +37,7 @@ public class SavingAccountManager implements SavingAccountService {
     private final CustomerService customerService;
     private final UniqueNoCreator uniqueNoCreator;
     private final AccountHelper accountHelper;
-    private final IAccountActivity accountActivity;
+    private final AccountActivityService accountActivity;
 
     @Override
     @Transactional

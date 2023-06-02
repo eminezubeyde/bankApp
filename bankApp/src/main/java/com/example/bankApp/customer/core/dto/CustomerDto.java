@@ -11,8 +11,6 @@ import java.util.Date;
 @Setter
 public class CustomerDto {
     private int id;
-    private int checkingAccountId;
-    private int savingAccountId;
     private String identityNumber;
     private String name;
     private String surname;

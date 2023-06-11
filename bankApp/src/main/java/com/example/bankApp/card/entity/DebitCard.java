@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -18,7 +19,9 @@ public class DebitCard {
     private String cardNumber;
     private String password;
     private String cvv;
-    private LocalDateTime expiryDate;
+
+    @Temporal(TemporalType.DATE)
+    private Date expiryDate;
 
     @Enumerated(EnumType.STRING)
     private CardStatus cardStatus;

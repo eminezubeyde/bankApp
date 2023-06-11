@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 @Mapper(componentModel = "spring")
 public interface CheckingAccountMapper {
-    static CheckingAccountMapper MAPPER = Mappers.getMapper(CheckingAccountMapper.class);
+    CheckingAccountMapper MAPPER = Mappers.getMapper(CheckingAccountMapper.class);
 
     @Mapping(target = "balance", expression = "java(convertBigDecimalToDouble(request.getBalance()))")
     CheckingAccount requestToEntity(CreateCheckingAccountRequest request);

@@ -1,6 +1,6 @@
 package com.example.bankApp.common.core.utils;
 
-import com.example.bankApp.account.business.abstracts.BaseAccountService;
+import com.example.bankApp.account.service.BaseAccountService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Component;

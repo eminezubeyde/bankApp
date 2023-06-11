@@ -1,8 +1,8 @@
-package com.example.bankApp.account.business.concretes;
+package com.example.bankApp.account.service.concretes;
 
-import com.example.bankApp.account.business.abstracts.AccountActivityService;
-import com.example.bankApp.account.business.abstracts.CheckingAccountService;
-import com.example.bankApp.account.business.abstracts.SavingAccountService;
+import com.example.bankApp.account.service.AccountActivityService;
+import com.example.bankApp.account.service.CheckingAccountService;
+import com.example.bankApp.account.service.SavingAccountService;
 import com.example.bankApp.account.core.dto.AccountActivityDto;
 import com.example.bankApp.account.core.dto.SavingAccountDto;
 import com.example.bankApp.account.core.dto.requests.SavingAccountRequest;
@@ -31,7 +31,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class SavingAccountManager implements SavingAccountService {
+public class SavingAccountServiceImpl implements SavingAccountService {
     private final SavingAccountRepository savingAccountRepository;
     private final CheckingAccountService checkingAccountService;
     private final CustomerService customerService;

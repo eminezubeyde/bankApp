@@ -1,14 +1,12 @@
-package com.example.bankApp.account.business.concretes;
+package com.example.bankApp.account.service.concretes;
 
-import com.example.bankApp.account.business.abstracts.CheckingAccountService;
+import com.example.bankApp.account.service.CheckingAccountService;
 import com.example.bankApp.account.core.dto.AccountActivityDto;
 import com.example.bankApp.account.core.dto.CheckingAccountDto;
 import com.example.bankApp.account.core.dto.requests.CreateCheckingAccountRequest;
 import com.example.bankApp.account.core.mapper.AccountActivityMapper;
 import com.example.bankApp.account.core.mapper.CheckingAccountMapper;
-import com.example.bankApp.account.entity.SavingAccount;
 import com.example.bankApp.common.core.exception.GeneralException;
-import com.example.bankApp.common.core.message.SavingAccountMessage;
 import com.example.bankApp.common.core.utils.UniqueNoCreator;
 import com.example.bankApp.account.entity.CheckingAccount;
 import com.example.bankApp.account.entity.enums.AccountType;
@@ -28,7 +26,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class CheckingAccountManager implements CheckingAccountService {
+public class CheckingAccountServiceImpl implements CheckingAccountService {
     private final CheckingAccountRepository checkingAccountRepository;
     private final CustomerService customerService;
     private final UniqueNoCreator uniqueNoCreator;

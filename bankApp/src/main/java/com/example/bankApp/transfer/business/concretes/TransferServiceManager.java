@@ -1,7 +1,7 @@
 package com.example.bankApp.transfer.business.concretes;
 
-import com.example.bankApp.account.business.abstracts.BaseAccountService;
-import com.example.bankApp.account.business.abstracts.AccountActivityService;
+import com.example.bankApp.account.service.BaseAccountService;
+import com.example.bankApp.account.service.AccountActivityService;
 import com.example.bankApp.account.entity.base.Account;
 import com.example.bankApp.common.core.entity.ActionStatus;
 import com.example.bankApp.common.core.exception.AmountNotValidException;

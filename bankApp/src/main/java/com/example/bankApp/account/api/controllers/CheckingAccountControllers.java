@@ -1,6 +1,6 @@
 package com.example.bankApp.account.api.controllers;
 
-import com.example.bankApp.account.business.abstracts.CheckingAccountService;
+import com.example.bankApp.account.service.CheckingAccountService;
 import com.example.bankApp.account.core.dto.requests.CreateCheckingAccountRequest;
 import com.example.bankApp.common.core.exception.EntityNotFoundException;
 import com.example.bankApp.common.core.exception.GeneralException;

@@ -1,4 +1,4 @@
-package com.example.bankApp.account.business.abstracts;
+package com.example.bankApp.account.service;
 
 import com.example.bankApp.common.core.entity.ActionStatus;
 

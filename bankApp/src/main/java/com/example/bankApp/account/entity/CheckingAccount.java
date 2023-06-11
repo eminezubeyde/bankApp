@@ -1,6 +1,7 @@
 package com.example.bankApp.account.entity;
 
 import com.example.bankApp.account.entity.base.Account;
+import com.example.bankApp.card.entity.DebitCard;
 import com.example.bankApp.customer.entity.Customer;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,8 +16,13 @@ public class CheckingAccount extends Account {
     private String branchCode;//şube kodu
     private String branchName;
     private boolean blocked = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Customer customer;
+
     @OneToOne
     private SavingAccount savingAccount;
+
+    @OneToOne
+    private DebitCard debitCard;
 }

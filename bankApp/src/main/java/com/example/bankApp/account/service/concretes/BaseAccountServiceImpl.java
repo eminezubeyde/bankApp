@@ -1,16 +1,15 @@
-package com.example.bankApp.account.business.concretes;
+package com.example.bankApp.account.service.concretes;
 
-import com.example.bankApp.account.business.abstracts.BaseAccountService;
+import com.example.bankApp.account.service.BaseAccountService;
 import com.example.bankApp.account.entity.base.Account;
 import com.example.bankApp.account.repository.AccountRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 @Service
 @RequiredArgsConstructor
-public class BaseAccountManager implements BaseAccountService {
+public class BaseAccountServiceImpl implements BaseAccountService {
     private final AccountRepository accountRepository;
 
     @Override

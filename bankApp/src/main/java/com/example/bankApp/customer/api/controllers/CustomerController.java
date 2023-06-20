@@ -4,7 +4,7 @@ import com.example.bankApp.common.core.exception.AlreadyExistsException;
 import com.example.bankApp.common.core.exception.EntityNotFoundException;
 import com.example.bankApp.common.core.exception.GeneralException;
 import com.example.bankApp.common.core.result.GeneralResult;
-import com.example.bankApp.customer.business.abstracts.CustomerService;
+import com.example.bankApp.customer.service.CustomerService;
 import com.example.bankApp.customer.core.dto.request.CreateCustomerRequest;
 import com.example.bankApp.customer.core.dto.request.UpdateCustomerRequest;
 import lombok.RequiredArgsConstructor;

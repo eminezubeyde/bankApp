@@ -1,4 +1,4 @@
-package com.example.bankApp.transfer.business.concretes;
+package com.example.bankApp.transfer.service.ımpl;
 
 import com.example.bankApp.account.service.BaseAccountService;
 import com.example.bankApp.account.service.AccountActivityService;
@@ -7,12 +7,12 @@ import com.example.bankApp.common.core.entity.ActionStatus;
 import com.example.bankApp.common.core.exception.AmountNotValidException;
 import com.example.bankApp.common.core.message.TransferMessage;
 import com.example.bankApp.common.core.result.DataResult;
-import com.example.bankApp.exchange.business.abstracts.ExchangeService;
+import com.example.bankApp.exchange.service.ExchangeService;
 import com.example.bankApp.exchange.core.model.Exchange;
 import com.example.bankApp.transfer.core.dto.TransferDto;
 import com.example.bankApp.transfer.core.exception.TransferOperationException;
 import com.example.bankApp.common.core.result.GeneralResult;
-import com.example.bankApp.transfer.business.abstracts.TransferService;
+import com.example.bankApp.transfer.service.TransferService;
 import com.example.bankApp.transfer.core.dto.request.CreateTransferRequest;
 import com.example.bankApp.transfer.core.mapper.TransferMapper;
 import com.example.bankApp.transfer.entitiy.Transfer;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-public class TransferServiceManager implements TransferService {
+public class TransferServiceImpl implements TransferService {
     private final TransferRepository transferRepository;
     private final BaseAccountService baseAccountService;
     private final AccountActivityService accountActivity;

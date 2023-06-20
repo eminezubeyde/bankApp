@@ -1,7 +1,7 @@
 package com.example.bankApp.customer.api.controllers;
 
 import com.example.bankApp.common.core.result.GeneralResult;
-import com.example.bankApp.customer.business.abstracts.AddressService;
+import com.example.bankApp.customer.service.AddressService;
 import com.example.bankApp.customer.core.dto.request.CreateAddressRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

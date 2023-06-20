@@ -1,4 +1,4 @@
-package com.example.bankApp.transfer.business.abstracts;
+package com.example.bankApp.transfer.service;
 
 import com.example.bankApp.common.core.exception.AmountNotValidException;
 import com.example.bankApp.common.core.result.GeneralResult;

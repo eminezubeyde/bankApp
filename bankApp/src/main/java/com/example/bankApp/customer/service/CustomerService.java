@@ -1,4 +1,4 @@
-package com.example.bankApp.customer.business.abstracts;
+package com.example.bankApp.customer.service;
 
 import com.example.bankApp.common.core.exception.AlreadyExistsException;
 import com.example.bankApp.common.core.exception.EntityNotFoundException;

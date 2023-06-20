@@ -2,7 +2,7 @@ package com.example.bankApp.transfer.api.controller;
 
 import com.example.bankApp.common.core.exception.AmountNotValidException;
 import com.example.bankApp.common.core.result.GeneralResult;
-import com.example.bankApp.transfer.business.abstracts.TransferService;
+import com.example.bankApp.transfer.service.TransferService;
 import com.example.bankApp.transfer.core.dto.request.CreateTransferRequest;
 import com.example.bankApp.transfer.core.exception.TransferOperationException;
 import lombok.RequiredArgsConstructor;

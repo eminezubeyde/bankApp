@@ -1,8 +1,7 @@
 package com.example.bankApp.exchange.api.controller;
 
 import com.example.bankApp.common.core.exception.AmountNotValidException;
-import com.example.bankApp.exchange.business.abstracts.ExchangeService;
-import com.example.bankApp.exchange.business.concretes.ExchangeManager;
+import com.example.bankApp.exchange.service.ExchangeService;
 import com.example.bankApp.exchange.core.model.Exchange;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

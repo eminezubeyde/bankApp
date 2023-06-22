@@ -1,5 +1,6 @@
 package com.example.bankApp.card.entity;
 
+import com.example.bankApp.customer.entity.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,4 +24,12 @@ public class CreditCard {
 
     @Temporal(TemporalType.DATE)
     private Date expiryDate;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private CreditCardAccount creditCardAccount;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Customer customer;
+
 }
